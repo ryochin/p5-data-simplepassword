@@ -1,11 +1,11 @@
 NAME
-    Data::SimplePassword - Simple Password Generator
+    Data::SimplePassword - Simple random password generator
 
 SYNOPSIS
      use Data::SimplePassword;
  
      my $sp = Data::SimplePassword->new;
-     $sp->chars( 0..9, 'a'..'z', 'A'..'Z' );
+     $sp->chars( 0..9, 'a'..'z', 'A'..'Z' );    # optional
  
      my $password = $sp->make_password( 8 );    # length
 
@@ -14,18 +14,18 @@ DESCRIPTION
 
 METHODS
     chars
-         $sp->chars( 0..9, 'a'..'f', 'A'..'Z' );    # default
-         $sp->chars( 0..9, 'a'..'z', qw(+ /) );
-         $sp->chars( 0..9, 'a'..'f' );
+         $sp->chars( 0..9, 'a'..'z', 'A'..'Z' );    # default
+         $sp->chars( 0..9, 'a'..'Z', qw(+ /) );
+         $sp->chars( 0..9 );
 
-        Set characters you want to use in your password string.
+        Sets an array of characters you want to use in your password string.
 
     make_password
           my $password = $sp->make_password( 8 );    # default
           my $password = $sp->make_password( 1024 );
 
-        Make password and just return it. You can set the byte length as an
-        integer.
+        Makes password string and just returns it. You can set the byte
+        length as an integer.
 
 DEPENDENCY
     Class::Accessor, Crypt::Random, Math::Random::MT

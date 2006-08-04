@@ -51,7 +51,7 @@ sub make_password {
     my @chars = ref $self->chars eq 'ARRAY' ? @{ $self->chars } : ( 0..9, 'a'..'z', 'A'..'Z' );
 
     my $gen = Math::Random::MT->new( map { Crypt::Random::makerandom( Size => 32, Strength => 1 ) } 1 .. $self->seed_num );
-    my $password = join '', @chars[ map { $gen->rand( scalar @chars ) } (1 .. $len) ];
+    my $password = join '', @chars[ map { int $gen->rand( scalar @chars ) } (1 .. $len) ];
 
     return $password;
 }
@@ -64,14 +64,14 @@ __END__
 
 =head1 NAME
 
-Data::SimplePassword - Simple Password Generator
+Data::SimplePassword - Simple random password generator
 
 =head1 SYNOPSIS
 
  use Data::SimplePassword;
  
  my $sp = Data::SimplePassword->new;
- $sp->chars( 0..9, 'a'..'z', 'A'..'Z' );
+ $sp->chars( 0..9, 'a'..'z', 'A'..'Z' );    # optional
  
  my $password = $sp->make_password( 8 );    # length
 
@@ -85,18 +85,18 @@ YA very easy-to-use but a bit strong random password generator.
 
 =item B<chars>
 
- $sp->chars( 0..9, 'a'..'f', 'A'..'Z' );    # default
- $sp->chars( 0..9, 'a'..'z', qw(+ /) );
- $sp->chars( 0..9, 'a'..'f' );
+ $sp->chars( 0..9, 'a'..'z', 'A'..'Z' );    # default
+ $sp->chars( 0..9, 'a'..'Z', qw(+ /) );
+ $sp->chars( 0..9 );
 
-Set characters you want to use in your password string.
+Sets an array of characters you want to use in your password string.
 
 =item B<make_password>
 
   my $password = $sp->make_password( 8 );    # default
   my $password = $sp->make_password( 1024 );
 
-Make password and just return it. You can set the byte length as an integer.
+Makes password string and just returns it. You can set the byte length as an integer.
 
 =back
 
@@ -113,4 +113,3 @@ Crypt::GeneratePassword, Crypt::RandPasswd, Data::RandomPass, String::MkPasswd
 Okamoto RYO <ryo@aquahill.net>
 
 =cut
-

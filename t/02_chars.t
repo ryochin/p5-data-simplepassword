@@ -2,7 +2,7 @@
 # $Id$
 
 use strict;
-use lib qw(/blib);
+use lib qw(blib);
 use Data::SimplePassword;
 
 use Test::More tests => 10;

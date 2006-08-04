@@ -4,4 +4,6 @@ MANIFEST
 README
 lib/Data/SimplePassword.pm
 t/01_new.t
-
+t/02_chars.t
+t/03_make_password.t
+t/04_differ.t
