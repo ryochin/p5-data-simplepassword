@@ -10,7 +10,7 @@ SYNOPSIS
      my $password = $sp->make_password( 8 );    # length
 
 DESCRIPTION
-    YA very easy-to-use but a bit secure random password generator.
+    YA very easy-to-use but a bit strong random password generator.
 
 METHODS
     chars
@@ -18,17 +18,17 @@ METHODS
          $sp->chars( 0..9, 'a'..'z', qw(+ /) );
          $sp->chars( 0..9, 'a'..'f' );
 
-        Set charactors you want to use in your password string.
+        Set characters you want to use in your password string.
 
     make_password
           my $password = $sp->make_password( 8 );    # default
           my $password = $sp->make_password( 1024 );
 
         Make password and just return it. You can set the byte length as an
-        integar.
+        integer.
 
 DEPENDENCY
-    Crypt::Random, Math::Random::MT
+    Class::Accessor, Crypt::Random, Math::Random::MT
 
 SEE ALSO
     Crypt::GeneratePassword, Crypt::RandPasswd, Data::RandomPass,

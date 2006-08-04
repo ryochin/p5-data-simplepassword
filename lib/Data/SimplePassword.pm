@@ -32,7 +32,7 @@ sub chars {
 
     if( scalar @_ > 0 ){
 
-	croak "each char must be a letter or an integar."
+	croak "each char must be a letter or an integer."
 	    if scalar grep { length( $_ ) != 1 } @_;
 
 	$self->{chars} = [ @_ ];
@@ -45,7 +45,7 @@ sub make_password {
     my $self = shift;
     my $len = shift || 8;
 
-    croak "length must be an integar."
+    croak "length must be an integer."
 	unless $len =~ /^\d+$/o;
 
     my @chars = ref $self->chars eq 'ARRAY' ? @{ $self->chars } : ( 0..9, 'a'..'z', 'A'..'Z' );
@@ -89,14 +89,14 @@ YA very easy-to-use but a bit strong random password generator.
  $sp->chars( 0..9, 'a'..'z', qw(+ /) );
  $sp->chars( 0..9, 'a'..'f' );
 
-Set charactors you want to use in your password string.
+Set characters you want to use in your password string.
 
 =item B<make_password>
 
   my $password = $sp->make_password( 8 );    # default
   my $password = $sp->make_password( 1024 );
 
-Make password and just return it. You can set the byte length as an integar.
+Make password and just return it. You can set the byte length as an integer.
 
 =back
 
