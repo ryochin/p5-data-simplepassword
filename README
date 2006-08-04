@@ -1,0 +1,39 @@
+NAME
+    Data::SimplePassword - Simple Password Generator
+
+SYNOPSIS
+     use Data::SimplePassword;
+ 
+     my $sp = Data::SimplePassword->new;
+     $sp->chars( 0..9, 'a'..'z', 'A'..'Z' );
+ 
+     my $password = $sp->make_password( 8 );    # length
+
+DESCRIPTION
+    YA very easy-to-use but a bit secure random password generator.
+
+METHODS
+    chars
+         $sp->chars( 0..9, 'a'..'f', 'A'..'Z' );    # default
+         $sp->chars( 0..9, 'a'..'z', qw(+ /) );
+         $sp->chars( 0..9, 'a'..'f' );
+
+        Set charactors you want to use in your password string.
+
+    make_password
+          my $password = $sp->make_password( 8 );    # default
+          my $password = $sp->make_password( 1024 );
+
+        Make password and just return it. You can set the byte length as an
+        integar.
+
+DEPENDENCY
+    Crypt::Random, Math::Random::MT
+
+SEE ALSO
+    Crypt::GeneratePassword, Crypt::RandPasswd, Data::RandomPass,
+    String::MkPasswd
+
+AUTHOR
+    Okamoto RYO <ryo@aquahill.net>
+
