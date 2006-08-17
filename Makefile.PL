@@ -10,6 +10,7 @@ WriteMakefile(
 	Crypt::Random => 0.01,
 	Math::Random::MT => 0.01,
     }, # e.g., Module::Name => 1.1
+    EXE_FILES => [ 'rndpassword' ],
     ($] >= 5.005 ?     ## Add these new keywords supported since 5.005
       (ABSTRACT_FROM  => 'lib/Data/SimplePassword.pm', # retrieve abstract from module
        AUTHOR         => 'Okamoto RYO <ryo@aquahill.net>') : ()),

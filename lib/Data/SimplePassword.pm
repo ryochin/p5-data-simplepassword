@@ -11,7 +11,7 @@ use Carp;
 use Crypt::Random ();
 use Math::Random::MT ();
 
-$VERSION = '0.01';
+$VERSION = '0.01_01';
 
 sub new {
     my $param = shift;
@@ -51,7 +51,7 @@ sub make_password {
     my @chars = ref $self->chars eq 'ARRAY' ? @{ $self->chars } : ( 0..9, 'a'..'z', 'A'..'Z' );
 
     my $gen = Math::Random::MT->new( map { Crypt::Random::makerandom( Size => 32, Strength => 1 ) } 1 .. $self->seed_num );
-    my $password = join '', @chars[ map { int $gen->rand( scalar @chars ) } (1 .. $len) ];
+    my $password = join '', @chars[ map { int $gen->rand( scalar @chars ) } 1 .. $len ];
 
     return $password;
 }
@@ -93,8 +93,8 @@ Sets an array of characters you want to use in your password string.
 
 =item B<make_password>
 
-  my $password = $sp->make_password( 8 );    # default
-  my $password = $sp->make_password( 1024 );
+ my $password = $sp->make_password( 8 );    # default
+ my $password = $sp->make_password( 1024 );
 
 Makes password string and just returns it. You can set the byte length as an integer.
 
