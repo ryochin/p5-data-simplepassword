@@ -3,10 +3,10 @@ NAME
 
 SYNOPSIS
      use Data::SimplePassword;
- 
+
      my $sp = Data::SimplePassword->new;
      $sp->chars( 0..9, 'a'..'z', 'A'..'Z' );    # optional
- 
+
      my $password = $sp->make_password( 8 );    # length
 
 DESCRIPTION
@@ -15,14 +15,15 @@ DESCRIPTION
 METHODS
     chars
          $sp->chars( 0..9, 'a'..'z', 'A'..'Z' );    # default
-         $sp->chars( 0..9, 'a'..'Z', qw(+ /) );
+         $sp->chars( 0..9, 'a'..'z', 'A'..'Z', qw(+ /) );    # b64-like
          $sp->chars( 0..9 );
+         my @c = $sp->chars;    # returns the current values
 
         Sets an array of characters you want to use in your password string.
 
     make_password
-          my $password = $sp->make_password( 8 );    # default
-          my $password = $sp->make_password( 1024 );
+         my $password = $sp->make_password( 8 );    # default
+         my $password = $sp->make_password( 1024 );
 
         Makes password string and just returns it. You can set the byte
         length as an integer.
@@ -35,5 +36,5 @@ SEE ALSO
     String::MkPasswd
 
 AUTHOR
-    Okamoto RYO <ryo@aquahill.net>
+    Ryo Okamoto <ryo at aquahill dot net>
 

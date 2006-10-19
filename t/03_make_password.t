@@ -32,7 +32,7 @@ for my $test ( @test ){
   my ($len, $rc) = @{$test}[1,2];
 
   diag("wait a moment ..")
-    if $len =~ /^\d+$/ && $len > 2000;
+    if $len =~ /^\d+$/o && $len > 2000;
 
   $sp->chars( @chars ) if scalar @chars;
   my $password = eval { $sp->make_password( $len ) };

@@ -9,7 +9,7 @@ use Test::More tests => 1;
 
 my $sp = Data::SimplePassword->new;
 
-my $n = 100;
+my $n = 1000;
 my @result;
 for(1..$n){
     push @result, $sp->make_password( 32 );

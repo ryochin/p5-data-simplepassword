@@ -11,7 +11,9 @@ use Carp;
 use Crypt::Random ();
 use Math::Random::MT ();
 
-$VERSION = '0.01_01';
+$VERSION = '0.02';
+
+sub _default_chars { ( 0..9, 'a'..'z', 'A'..'Z' ) }
 
 sub new {
     my $param = shift;
@@ -32,7 +34,7 @@ sub chars {
 
     if( scalar @_ > 0 ){
 
-	croak "each char must be a letter or an integer."
+	croak "each chars must be a letter or an integer."
 	    if scalar grep { length( $_ ) != 1 } @_;
 
 	$self->{chars} = [ @_ ];
@@ -48,7 +50,7 @@ sub make_password {
     croak "length must be an integer."
 	unless $len =~ /^\d+$/o;
 
-    my @chars = ref $self->chars eq 'ARRAY' ? @{ $self->chars } : ( 0..9, 'a'..'z', 'A'..'Z' );
+    my @chars = ref $self->chars eq 'ARRAY' ? @{ $self->chars } : $self->_default_chars;
 
     my $gen = Math::Random::MT->new( map { Crypt::Random::makerandom( Size => 32, Strength => 1 ) } 1 .. $self->seed_num );
     my $password = join '', @chars[ map { int $gen->rand( scalar @chars ) } 1 .. $len ];
@@ -69,10 +71,10 @@ Data::SimplePassword - Simple random password generator
 =head1 SYNOPSIS
 
  use Data::SimplePassword;
- 
+
  my $sp = Data::SimplePassword->new;
  $sp->chars( 0..9, 'a'..'z', 'A'..'Z' );    # optional
- 
+
  my $password = $sp->make_password( 8 );    # length
 
 =head1 DESCRIPTION
@@ -86,8 +88,9 @@ YA very easy-to-use but a bit strong random password generator.
 =item B<chars>
 
  $sp->chars( 0..9, 'a'..'z', 'A'..'Z' );    # default
- $sp->chars( 0..9, 'a'..'Z', qw(+ /) );
+ $sp->chars( 0..9, 'a'..'z', 'A'..'Z', qw(+ /) );    # b64-like
  $sp->chars( 0..9 );
+ my @c = $sp->chars;    # returns the current values
 
 Sets an array of characters you want to use in your password string.
 
@@ -110,6 +113,6 @@ Crypt::GeneratePassword, Crypt::RandPasswd, Data::RandomPass, String::MkPasswd
 
 =head1 AUTHOR
 
-Okamoto RYO <ryo@aquahill.net>
+Ryo Okamoto <ryo at aquahill dot net>
 
 =cut
