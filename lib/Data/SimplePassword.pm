@@ -11,7 +11,7 @@ use Carp;
 use Crypt::Random ();
 use Math::Random::MT ();
 
-$VERSION = '0.02';
+$VERSION = '0.02_01';
 
 sub _default_chars { ( 0..9, 'a'..'z', 'A'..'Z' ) }
 
