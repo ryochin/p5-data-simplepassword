@@ -19,7 +19,7 @@ my @test = (
   [ [] => 8, SUCCESS ],
   [ [ 0..9, 'a'..'Z' ] => 1, SUCCESS ],
   [ [ 0..9, 'a'..'Z' ] => 1024, SUCCESS ],
-  [ [ 0..9, 'a'..'Z' ] => 1024 ** 2, SUCCESS ],    # 1MB
+  [ [ 0..9, 'a'..'Z' ] => 1024 * 100, SUCCESS ],    # 100KB
   [ [ 0 ] => 8, SUCCESS ],
   [ [ 1 ] => 8, SUCCESS ],
   [ [ 'a'..'Z', qw(+ /) ] => 8, SUCCESS ],
@@ -31,8 +31,8 @@ for my $test ( @test ){
   my @chars = @{ $test->[0] };
   my ($len, $rc) = @{$test}[1,2];
 
-  diag("wait a moment ..")
-    if $len =~ /^\d+$/o && $len > 2000;
+#  diag("wait a moment ..")
+#    if $len =~ /^\d+$/o && $len > 2000;
 
   $sp->chars( @chars ) if scalar @chars;
   my $password = eval { $sp->make_password( $len ) };

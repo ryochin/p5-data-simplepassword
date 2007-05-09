@@ -11,7 +11,7 @@ use Carp;
 use Crypt::Random ();
 use Math::Random::MT ();
 
-$VERSION = '0.02_01';
+$VERSION = '0.02_02';
 
 sub _default_chars { ( 0..9, 'a'..'z', 'A'..'Z' ) }
 
@@ -50,7 +50,7 @@ sub make_password {
     croak "length must be an integer."
 	unless $len =~ /^\d+$/o;
 
-    my @chars = ref $self->chars eq 'ARRAY' ? @{ $self->chars } : $self->_default_chars;
+    my @chars = defined $self->chars && ref $self->chars eq 'ARRAY' ? @{ $self->chars } : $self->_default_chars;
 
     my $gen = Math::Random::MT->new( map { Crypt::Random::makerandom( Size => 32, Strength => 1 ) } 1 .. $self->seed_num );
     my $password = join '', @chars[ map { int $gen->rand( scalar @chars ) } 1 .. $len ];
@@ -85,6 +85,12 @@ YA very easy-to-use but a bit strong random password generator.
 
 =over 4
 
+=item B<new>
+
+ my $sp = Data::SimplePassword->new;
+
+Makes a Data::SimplePassword object.
+
 =item B<chars>
 
  $sp->chars( 0..9, 'a'..'z', 'A'..'Z' );    # default
@@ -92,7 +98,7 @@ YA very easy-to-use but a bit strong random password generator.
  $sp->chars( 0..9 );
  my @c = $sp->chars;    # returns the current values
 
-Sets an array of characters you want to use in your password string.
+Sets an array of characters you want to use as your password string.
 
 =item B<make_password>
 
@@ -109,7 +115,7 @@ Class::Accessor, Crypt::Random, Math::Random::MT
 
 =head1 SEE ALSO
 
-Crypt::GeneratePassword, Crypt::RandPasswd, Data::RandomPass, String::MkPasswd
+Crypt::GeneratePassword, Crypt::RandPasswd, Data::RandomPass, String::MkPasswd, Data::Random::String
 
 =head1 AUTHOR
 
