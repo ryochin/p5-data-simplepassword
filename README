@@ -1,40 +1,52 @@
-NAME
-    Data::SimplePassword - Simple random password generator
+Data-SimplePassword
 
-SYNOPSIS
-     use Data::SimplePassword;
+The README is used to introduce the module and provide instructions on
+how to install the module, any machine dependencies it may have (for
+example C compilers and installed libraries) and any other information
+that should be provided before the module is installed.
 
-     my $sp = Data::SimplePassword->new;
-     $sp->chars( 0..9, 'a'..'z', 'A'..'Z' );    # optional
+A README file is required for CPAN modules since CPAN extracts the README
+file from a module distribution so that people browsing the archive
+can use it to get an idea of the module's uses. It is usually a good idea
+to provide version information here so that people can decide whether
+fixes for the module are worth downloading.
 
-     my $password = $sp->make_password( 8 );    # length
 
-DESCRIPTION
-    YA very easy-to-use but a bit strong random password generator.
+INSTALLATION
 
-METHODS
-    chars
-         $sp->chars( 0..9, 'a'..'z', 'A'..'Z' );    # default
-         $sp->chars( 0..9, 'a'..'z', 'A'..'Z', qw(+ /) );    # b64-like
-         $sp->chars( 0..9 );
-         my @c = $sp->chars;    # returns the current values
+To install this module, run the following commands:
 
-        Sets an array of characters you want to use in your password string.
+	perl Build.PL
+	./Build
+	./Build test
+	./Build install
 
-    make_password
-         my $password = $sp->make_password( 8 );    # default
-         my $password = $sp->make_password( 1024 );
+SUPPORT AND DOCUMENTATION
 
-        Makes password string and just returns it. You can set the byte
-        length as an integer.
+After installing, you can find documentation for this module with the
+perldoc command.
 
-DEPENDENCY
-    Class::Accessor, Crypt::Random, Math::Random::MT
+    perldoc Data::SimplePassword
 
-SEE ALSO
-    Crypt::GeneratePassword, Crypt::RandPasswd, Data::RandomPass,
-    String::MkPasswd
+You can also look for information at:
 
-AUTHOR
-    Ryo Okamoto <ryo at aquahill dot net>
+    RT, CPAN's request tracker
+        http://rt.cpan.org/NoAuth/Bugs.html?Dist=Data-SimplePassword
+
+    AnnoCPAN, Annotated CPAN documentation
+        http://annocpan.org/dist/Data-SimplePassword
+
+    CPAN Ratings
+        http://cpanratings.perl.org/d/Data-SimplePassword
+
+    Search CPAN
+        http://search.cpan.org/dist/Data-SimplePassword
+
+
+COPYRIGHT AND LICENCE
+
+Copyright (C) 2006-2008 Ryo Okamoto
+
+This program is free software; you can redistribute it and/or modify it
+under the same terms as Perl itself.
 
