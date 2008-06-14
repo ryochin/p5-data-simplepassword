@@ -1,17 +1,36 @@
 #
 # $Id$
 
+package Data::SimplePassword::exception;
+
+use strict;
+use Carp;
+
+sub new { croak "couldn't find suitable MT class." }
+
 package Data::SimplePassword;
 
 use strict;
 use 5.00502;
 use vars qw($VERSION);
-use base qw(Class::Accessor::Fast);
+use base qw(Class::Accessor::Fast Class::Data::Inheritable);
+use CLASS;
 use Carp;
+use UNIVERSAL::require;
 use Crypt::Random ();
-use Math::Random::MT ();
 
-$VERSION = '0.02_02';
+$VERSION = '0.03';
+
+CLASS->mk_classdata( qw(class) );
+CLASS->mk_accessors( qw(seed_num) );
+
+{
+    Math::Random::MT->use
+        ? CLASS->class("Math::Random::MT")
+        : Math::Random::MT::Perl->use
+            ? CLASS->class("Math::Random::MT::Perl")
+            : CLASS->class("Data::SimplePassword::exception");
+}
 
 sub _default_chars { ( 0..9, 'a'..'z', 'A'..'Z' ) }
 
@@ -23,8 +42,6 @@ sub new {
 	seed_num => 1,    # now internal only, up to 624
 	@_
     );
-
-    $class->mk_accessors( qw(seed_num) );
 
     return bless { %args }, $class;
 }
@@ -52,7 +69,7 @@ sub make_password {
 
     my @chars = defined $self->chars && ref $self->chars eq 'ARRAY' ? @{ $self->chars } : $self->_default_chars;
 
-    my $gen = Math::Random::MT->new( map { Crypt::Random::makerandom( Size => 32, Strength => 1 ) } 1 .. $self->seed_num );
+    my $gen = $self->class->new( map { Crypt::Random::makerandom( Size => 32, Strength => 1 ) } 1 .. $self->seed_num );
     my $password = join '', @chars[ map { int $gen->rand( scalar @chars ) } 1 .. $len ];
 
     return $password;
@@ -61,8 +78,6 @@ sub make_password {
 1;
 
 __END__
-
-=pod
 
 =head1 NAME
 
@@ -111,7 +126,7 @@ Makes password string and just returns it. You can set the byte length as an int
 
 =head1 DEPENDENCY
 
-Class::Accessor, Crypt::Random, Math::Random::MT
+Class::Accessor, Crypt::Random, Math::Random::MT (or Math::Random::MT::Perl)
 
 =head1 SEE ALSO
 
@@ -119,6 +134,12 @@ Crypt::GeneratePassword, Crypt::RandPasswd, Data::RandomPass, String::MkPasswd, 
 
 =head1 AUTHOR
 
-Ryo Okamoto <ryo at aquahill dot net>
+Ryo Okamoto C<< <ryo at aquahill dot net> >>
 
-=cut
+=head1 COPYRIGHT & LICENSE
+
+Copyright 2008 Ryo Okamoto, all rights reserved.
+
+This program is free software; you can redistribute it and/or modify it
+under the same terms as Perl itself.
+

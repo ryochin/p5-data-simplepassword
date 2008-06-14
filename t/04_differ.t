@@ -5,21 +5,23 @@ use strict;
 use lib qw(blib);
 use Data::SimplePassword;
 
-use Test::More tests => 1;
+use Test::More;
 
-my $sp = Data::SimplePassword->new;
-
-my $n = 1000;
-my @result;
-for(1..$n){
-    push @result, $sp->make_password( 32 );
+if( ! $ENV{RUN_HEAVY_TEST} ){
+    plan skip_all => "define RUN_HEAVY_TEST to run these tests";
 }
+else{
+    require List::MoreUtils;
+    plan tests => 1;
 
-ok( scalar &uniq( @result ) == $n, "unique test" );
+    my $sp = Data::SimplePassword->new;
 
+    my $n = 1000;
+    my @result;
+    for(1..$n){
+	push @result, $sp->make_password( 32 );
+    }
 
-sub uniq {
-    my $seen = {};
-    return grep { ! $seen->{$_} ++ } @_;
+    ok( scalar List::MoreUtils::uniq( @result ) == $n, "unique test" );
 }
 

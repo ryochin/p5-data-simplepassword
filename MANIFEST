@@ -1,11 +1,17 @@
+Build.PL
 Changes
+lib/Data/SimplePassword.pm
 Makefile.PL
 MANIFEST
 README
-lib/Data/SimplePassword.pm
 rndpassword
+t/00_load.t
 t/01_new.t
 t/02_chars.t
 t/03_make_password.t
 t/04_differ.t
-META.yml                                 Module meta-data (added by MakeMaker)
+t/95_perl-critic.t
+t/97_pod.t
+t/98_pod-spelling.t
+t/99_pod-coverage.t
+t/perlcriticrc
