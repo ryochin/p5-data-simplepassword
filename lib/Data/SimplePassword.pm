@@ -6,7 +6,7 @@ package Data::SimplePassword::exception;
 use strict;
 use Carp;
 
-sub new { croak "couldn't find suitable MT class." }
+sub new { croak "couldn't find any suitable MT classes." }
 
 package Data::SimplePassword;
 
@@ -39,7 +39,7 @@ sub new {
     my $class = ref $param || $param;
     my %args = (
 	chars => undef,
-	seed_num => 1,    # now internal only, up to 624
+	seed_num => 1,    # now internal use only, up to 624
 	@_
     );
 
@@ -126,7 +126,8 @@ Makes password string and just returns it. You can set the byte length as an int
 
 =head1 DEPENDENCY
 
-Class::Accessor, Crypt::Random, Math::Random::MT (or Math::Random::MT::Perl)
+CLASS, Class::Accessor, Class::Data::Inheritable, Crypt::Random, Math::Random::MT (or Math::Random::MT::Perl),
+UNIVERSAL::require
 
 =head1 SEE ALSO
 
@@ -138,7 +139,7 @@ Ryo Okamoto C<< <ryo at aquahill dot net> >>
 
 =head1 COPYRIGHT & LICENSE
 
-Copyright 2008 Ryo Okamoto, all rights reserved.
+Copyright 2006-2008 Ryo Okamoto, all rights reserved.
 
 This program is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

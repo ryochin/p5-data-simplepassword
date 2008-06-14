@@ -1,7 +1,6 @@
 Build.PL
 Changes
 lib/Data/SimplePassword.pm
-Makefile.PL
 MANIFEST
 README
 rndpassword
@@ -15,3 +14,5 @@ t/97_pod.t
 t/98_pod-spelling.t
 t/99_pod-coverage.t
 t/perlcriticrc
+Makefile.PL
+META.yml

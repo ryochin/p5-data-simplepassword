@@ -10,16 +10,17 @@ my $builder = Module::Build->new(
     license             => 'perl',
     dist_author         => 'Ryo Okamoto <ryo at aquahill dot net>',
     dist_version_from   => 'lib/Data/SimplePassword.pm',
-    auto_features => {
-	xs_support => {
-	    description => "XS version of Math::Random::MT",
-	    requires => {
-		'Math::Random::MT' => 0,
-	    }
-	}
-    },
+#    auto_features => {
+#	xs_support => {
+#	    description => "XS version of Math::Random::MT",
+#	    requires => {
+#		'Math::Random::MT' => 0,
+#	    }
+#	}
+#    },
     build_requires => {
         'Test::More' => 0,
+	'List::MoreUtils' => 0,
     },
     requires => {
 	'CLASS' => 0,

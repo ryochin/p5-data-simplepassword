@@ -11,15 +11,16 @@ use constant SUCCESS => 1;
 use constant FAILURE => 0;
 
 my $sp = Data::SimplePassword->new;
-#$sp->seed_num( 624 );    # up to 624
+$sp->seed_num( 624 )    # up to 624
+  if $ENV{RUN_HEAVY_TEST};
 
 can_ok( $sp, 'make_password' );
 
 my @test = (
   [ [] => 8, SUCCESS ],
   [ [ 0..9, 'a'..'Z' ] => 1, SUCCESS ],
-  [ [ 0..9, 'a'..'Z' ] => 1024, SUCCESS ],
-  [ [ 0..9, 'a'..'Z' ] => 1024 * 10, SUCCESS ],    # 10KB
+  [ [ 0..9, 'a'..'Z' ] => 256, SUCCESS ],
+  [ [ 0..9, 'a'..'Z' ] => $ENV{RUN_HEAVY_TEST} ? 1024 * 5 : 1024, SUCCESS ],    # 5KB
   [ [ 0 ] => 8, SUCCESS ],
   [ [ 1 ] => 8, SUCCESS ],
   [ [ 'a'..'Z', qw(+ /) ] => 8, SUCCESS ],

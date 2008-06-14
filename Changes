@@ -1,7 +1,13 @@
 Revision history for Perl extension Data::SimplePassword.
 
+0.03  Sat Jun 14 19:17:30 JST 2008
+	* added support for Math::Random::MT::Perl.
+	* switched to Module::Build.
+	* cleaned up test scripts.
+	* added 'binary' option to rndpassword.
+
 0.02  Fri Oct 20 08:57:08 JST 2006
-	* added rndpassword commandline tool.
+	* added rndpassword command-line tool.
 
 0.01  Fri Aug  4 15:46:42 JST 2006
 	* first release.
