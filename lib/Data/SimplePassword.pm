@@ -1,13 +1,6 @@
 #
 # $Id$
 
-package Data::SimplePassword::exception;
-
-use strict;
-use Carp;
-
-sub new { croak "couldn't find any suitable MT classes." }
-
 package Data::SimplePassword;
 
 use strict;
@@ -19,17 +12,17 @@ use Carp;
 use UNIVERSAL::require;
 use Crypt::Random ();
 
-$VERSION = '0.03';
+$VERSION = '0.04';
 
 CLASS->mk_classdata( qw(class) );
 CLASS->mk_accessors( qw(seed_num) );
 
 {
     Math::Random::MT->use
-        ? CLASS->class("Math::Random::MT")
-        : Math::Random::MT::Perl->use
-            ? CLASS->class("Math::Random::MT::Perl")
-            : CLASS->class("Data::SimplePassword::exception");
+	? CLASS->class("Math::Random::MT")
+	: Math::Random::MT::Perl->use
+	    ? CLASS->class("Math::Random::MT::Perl")
+	    : CLASS->class("Data::SimplePassword::exception");
 }
 
 sub _default_chars { ( 0..9, 'a'..'z', 'A'..'Z' ) }
@@ -70,9 +63,21 @@ sub make_password {
     my @chars = defined $self->chars && ref $self->chars eq 'ARRAY' ? @{ $self->chars } : $self->_default_chars;
 
     my $gen = $self->class->new( map { Crypt::Random::makerandom( Size => 32, Strength => 1 ) } 1 .. $self->seed_num );
-    my $password = join '', @chars[ map { int $gen->rand( scalar @chars ) } 1 .. $len ];
+    my $password;
+    while( $len-- ){
+	$password .= $chars[ $gen->rand( scalar @chars ) ];
+    }
 
     return $password;
+}
+
+{    package    # hide from PAUSE
+	Data::SimplePassword::exception;
+
+    use strict;
+    use Carp;
+
+    AUTOLOAD { croak "couldn't find any suitable MT classes." }
 }
 
 1;

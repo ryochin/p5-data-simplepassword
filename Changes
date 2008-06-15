@@ -1,5 +1,9 @@
 Revision history for Perl extension Data::SimplePassword.
 
+0.04  Sun Jun 15 16:22:32 JST 2008
+	* fixed a bug caused memory greediness with too long strings :<
+	* improved internal code for PAUSE.
+
 0.03  Sat Jun 14 19:17:30 JST 2008
 	* added support for Math::Random::MT::Perl.
 	* switched to Module::Build.
