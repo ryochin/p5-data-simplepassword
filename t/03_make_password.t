@@ -1,5 +1,4 @@
 #
-# $Id$
 
 use strict;
 use lib qw(blib);
@@ -19,8 +18,8 @@ can_ok( $sp, 'make_password' );
 my @test = (
   [ [] => 8, SUCCESS ],
   [ [ 0..9, 'a'..'Z' ] => 1, SUCCESS ],
-  [ [ 0..9, 'a'..'Z' ] => 256, SUCCESS ],
-  [ [ 0..9, 'a'..'Z' ] => $ENV{RUN_HEAVY_TEST} ? 1024 * 5 : 1024, SUCCESS ],    # 5KB
+  [ [ 0..9, 'a'..'Z' ] => 32, SUCCESS ],
+  [ [ 0..9, 'a'..'Z' ] => $ENV{RUN_HEAVY_TEST} ? 1024 * 5 : 256, SUCCESS ],    # 5KB
   [ [ 0 ] => 8, SUCCESS ],
   [ [ 1 ] => 8, SUCCESS ],
   [ [ 'a'..'Z', qw(+ /) ] => 8, SUCCESS ],

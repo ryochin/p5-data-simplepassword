@@ -1,6 +1,4 @@
 # 
-# $URL$
-# $Id$
 
 # a tiny exception class :<
 [-Modules::RequireFilenameMatchesPackage]
