@@ -18,6 +18,7 @@ To install this module, run the following commands:
 
 	perl Build.PL
 	./Build
+	export RUN_HEAVY_TEST=1    # optional
 	./Build test
 	./Build install
 
