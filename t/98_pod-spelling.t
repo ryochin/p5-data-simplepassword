@@ -9,7 +9,7 @@ if( defined $ENV{PERL_TEST_SPELLING} and $ENV{PERL_TEST_SPELLING} ){
     ;
   }
   else{
-    plan skip_all => "couldn't load Tetst::Spelling";
+    plan skip_all => "couldn't load Test::Spelling";
   }
 }
 else{
