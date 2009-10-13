@@ -1,5 +1,4 @@
 #
-# $Id$
 
 package Data::SimplePassword;
 
@@ -12,7 +11,7 @@ use Carp;
 use UNIVERSAL::require;
 use Crypt::Random ();
 
-$VERSION = '0.04';
+$VERSION = '0.05_01';
 
 CLASS->mk_classdata( qw(class) );
 CLASS->mk_accessors( qw(seed_num) );
@@ -60,9 +59,12 @@ sub make_password {
     croak "length must be an integer."
 	unless $len =~ /^\d+$/o;
 
-    my @chars = defined $self->chars && ref $self->chars eq 'ARRAY' ? @{ $self->chars } : $self->_default_chars;
+    my @chars = defined $self->chars && ref $self->chars eq 'ARRAY'
+	? @{ $self->chars }
+	: $self->_default_chars;
 
     my $gen = $self->class->new( map { Crypt::Random::makerandom( Size => 32, Strength => 1 ) } 1 .. $self->seed_num );
+
     my $password;
     while( $len-- ){
 	$password .= $chars[ $gen->rand( scalar @chars ) ];
@@ -129,6 +131,10 @@ Makes password string and just returns it. You can set the byte length as an int
 
 =back
 
+=head1 COMMAND-LINE TOOL
+
+A useful command named rndpassword(1) will be also installed. Type B<man rndpassword> for details.
+
 =head1 DEPENDENCY
 
 CLASS, Class::Accessor, Class::Data::Inheritable, Crypt::Random, Math::Random::MT (or Math::Random::MT::Perl),
@@ -144,7 +150,7 @@ Ryo Okamoto C<< <ryo at aquahill dot net> >>
 
 =head1 COPYRIGHT & LICENSE
 
-Copyright 2006-2008 Ryo Okamoto, all rights reserved.
+Copyright 2006-2009 Ryo Okamoto, all rights reserved.
 
 This program is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.
