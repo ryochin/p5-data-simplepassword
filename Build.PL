@@ -19,7 +19,7 @@ my $builder = Module::Build->new(
 #	}
 #    },
     build_requires => {
-        'Test::More' => 0,
+        'Test::More' => 0.88,
 	'List::MoreUtils' => 0,
     },
     requires => {
