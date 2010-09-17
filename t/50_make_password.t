@@ -15,6 +15,8 @@ $sp->seed_num( 624 )    # up to 624
 
 can_ok( $sp, 'make_password' );
 
+eval { $sp->provider('devurandom') };    # trying to use non-locking RNG
+
 my @test = (
   [ [] => 8, SUCCESS ],
   [ [ 0..9, 'a'..'Z' ] => 1, SUCCESS ],
