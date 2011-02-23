@@ -11,7 +11,7 @@ use Carp;
 use UNIVERSAL::require;
 use Crypt::Random ();
 
-$VERSION = '0.06';
+$VERSION = '0.07';
 
 CLASS->mk_classdata( qw(class) );
 CLASS->mk_accessors( qw(seed_num) );
@@ -177,7 +177,7 @@ Ryo Okamoto C<< <ryo at aquahill dot net> >>
 
 =head1 COPYRIGHT & LICENSE
 
-Copyright 2006-2010 Ryo Okamoto, all rights reserved.
+Copyright 2006-2011 Ryo Okamoto, all rights reserved.
 
 This program is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

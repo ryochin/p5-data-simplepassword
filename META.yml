@@ -16,7 +16,7 @@ name: Data-SimplePassword
 provides:
   Data::SimplePassword:
     file: lib/Data/SimplePassword.pm
-    version: 0.06
+    version: 0.07
 recommends:
   Math::Random::MT: 0
 requires:
@@ -28,4 +28,4 @@ requires:
   UNIVERSAL::require: 0
 resources:
   license: http://dev.perl.org/licenses/
-version: 0.06
+version: 0.07
