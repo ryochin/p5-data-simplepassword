@@ -45,14 +45,25 @@ sub provider {
 
     if( defined $provider and $provider ne '' ){
 	# check
-	my $pkg = sprintf "Crypt::Random::Provider::%s", $provider;
-	eval "use $pkg; $pkg->available()"
-	    or croak "RNG provider '$_[0]' is not available.";
+	$self->is_available_provider( $provider )
+	    or croak "RNG provider '$_[0]' is not available on this machine.";
 
 	$self->{provider} = $provider;
     }
 
     return $self->{provider};
+}
+
+sub is_available_provider {
+    my $self = shift;
+    my ($provider) = @_;
+
+    if( defined $provider and $provider ne '' ){
+	my $pkg = sprintf "Crypt::Random::Provider::%s", $provider;
+	return eval "use $pkg; $pkg->available()";
+    }
+
+    return;
 }
 
 sub chars {
@@ -132,12 +143,6 @@ YA very easy-to-use but a bit strong random password generator.
 
 Makes a Data::SimplePassword object.
 
-=item B<provider>
-
- $sp->provider("devurandom");    # optional
-
-Sets a type of radmon number generator, see Crypt::Random::Provider::* for details.
-
 =item B<chars>
 
  $sp->chars( 0..9, 'a'..'z', 'A'..'Z' );    # default
@@ -153,6 +158,24 @@ Sets an array of characters you want to use as your password string.
  my $password = $sp->make_password( 1024 );
 
 Makes password string and just returns it. You can set the byte length as an integer.
+
+=back
+
+=head1 EXTRA METHODS
+
+=over 4
+
+=item B<provider>
+
+ $sp->provider("devurandom");    # optional
+
+Sets a type of radmon number generator, see Crypt::Random::Provider::* for details.
+
+=item B<is_available_provider>
+
+ $sp->is_available_provider("devurandom");
+
+Returns true when the type is available.
 
 =back
 

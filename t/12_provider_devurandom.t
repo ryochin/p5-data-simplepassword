@@ -10,8 +10,7 @@ my $sp = Data::SimplePassword->new;
 
 my $type = 'devurandom';
 
-my $rv = eval "\$sp->provider('$type')";
-plan skip_all => qq{provider '$type' not available} if not $rv;
+plan skip_all => qq{provider '$type' not available} if not $sp->is_available_provider( $type );
 
 ok( length $sp->make_password( 32 ) == 32, "password length" );
 
