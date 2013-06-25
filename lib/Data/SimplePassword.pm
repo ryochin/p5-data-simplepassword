@@ -11,6 +11,8 @@ use Carp;
 use UNIVERSAL::require;
 use Crypt::Random ();
 
+# ABSTRACT: Simple random password generator
+
 $VERSION = '0.07';
 
 CLASS->mk_classdata( qw(class) );
@@ -116,6 +118,8 @@ sub make_password {
 
 __END__
 
+=encoding utf-8
+
 =head1 NAME
 
 Data::SimplePassword - Simple random password generator
@@ -169,7 +173,7 @@ Makes password string and just returns it. You can set the byte length as an int
 
  $sp->provider("devurandom");    # optional
 
-Sets a type of radmon number generator, see Crypt::Random::Provider::* for details.
+Sets a type of random number generator, see Crypt::Random::Provider::* for details.
 
 =item B<is_available_provider>
 
@@ -190,18 +194,23 @@ UNIVERSAL::require
 
 =head1 SEE ALSO
 
-Crypt::GeneratePassword, Crypt::RandPasswd, Data::RandomPass, String::MkPasswd, Data::Random::String
+Crypt::GeneratePassword, Crypt::RandPasswd, String::MkPasswd, Data::Random::String
 
 http://en.wikipedia.org/wiki//dev/random
 
+=head1 REPOSITORY
+
+https://github.com/ryochin/p5-data-simplepassword
+
 =head1 AUTHOR
 
-Ryo Okamoto C<< <ryo at aquahill dot net> >>
+Ryo Okamoto E<lt>ryo@aquahill.netE<gt>
 
 =head1 COPYRIGHT & LICENSE
 
-Copyright 2006-2011 Ryo Okamoto, all rights reserved.
+Copyright (c) Ryo Okamoto, all rights reserved.
 
 This program is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.
 
+=cut
