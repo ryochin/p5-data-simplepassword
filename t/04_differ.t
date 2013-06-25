@@ -9,6 +9,10 @@ use List::MoreUtils;
 
 my $sp = Data::SimplePassword->new;
 
+# trying to use non-blocking RNG for quick test
+$sp->provider("devurandom")
+    if $sp->is_available_provider("devurandom");
+
 my $n = $ENV{RUN_HEAVY_TEST} ? 1000 : 10;
 my @result;
 for(1..$n){
