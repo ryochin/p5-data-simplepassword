@@ -13,7 +13,7 @@ use Crypt::Random ();
 
 # ABSTRACT: Simple random password generator
 
-$VERSION = '0.07';
+$VERSION = '0.08';
 
 CLASS->mk_classdata( qw(class) );
 CLASS->mk_accessors( qw(seed_num) );
