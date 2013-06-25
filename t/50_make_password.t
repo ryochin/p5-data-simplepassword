@@ -15,7 +15,9 @@ $sp->seed_num( 624 )    # up to 624
 
 can_ok( $sp, 'make_password' );
 
-eval { $sp->provider('devurandom') };    # trying to use non-blocking RNG
+# trying to use non-blocking RNG for quick test
+$sp->provider("devurandom")
+    if $sp->is_available_provider("devurandom");
 
 my @test = (
   [ [] => 8, SUCCESS ],
