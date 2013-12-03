@@ -53,14 +53,19 @@ YA very easy-to-use but a bit strong random password generator.
 
     Returns true when the type is available.
 
+- __seed\_num__
+
+        $sp->seed_num( 32 );    # up to 624
+
+    Sets initial seed number (internal use only).
+
 # COMMAND-LINE TOOL
 
 A useful command named rndpassword(1) will be also installed. Type __man rndpassword__ for details.
 
 # DEPENDENCY
 
-CLASS, Class::Accessor, Class::Data::Inheritable, Crypt::Random, Math::Random::MT (or Math::Random::MT::Perl),
-UNIVERSAL::require
+Moo, UNIVERSAL::require, Crypt::Random, Math::Random::MT (or Math::Random::MT::Perl),
 
 # SEE ALSO
 

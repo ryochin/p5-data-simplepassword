@@ -5,12 +5,14 @@ use lib qw(blib);
 use Data::SimplePassword;
 
 use Test::More;
+use Test::Exception;
 
 my $sp = Data::SimplePassword->new;
 
 can_ok( $sp, "provider" );
 
-ok( $sp->provider('') eq '', "empty string returns empty" );
+dies_ok { $sp->provider('') } "empty string not allowed";
+dies_ok { $sp->provider('/dev/nonexistent') } "nonexistent provider failed";
 
 # once a provider is set, it returns the one
 SKIP: {
@@ -21,3 +23,5 @@ SKIP: {
 };
 
 done_testing;
+
+__END__

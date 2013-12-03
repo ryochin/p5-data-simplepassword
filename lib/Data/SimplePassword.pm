@@ -2,58 +2,60 @@
 
 package Data::SimplePassword;
 
-use strict;
-use 5.00502;
-use vars qw($VERSION);
-use base qw(Class::Accessor::Fast Class::Data::Inheritable);
-use CLASS;
+use Moo;
+use MooX::ClassAttribute;
+
 use Carp;
 use UNIVERSAL::require;
 use Crypt::Random ();
 
 # ABSTRACT: Simple random password generator
 
-$VERSION = '0.08';
+our $VERSION = '0.10';
 
-CLASS->mk_classdata( qw(class) );
-CLASS->mk_accessors( qw(seed_num) );
+class_has 'class' => (
+    is => 'rw',
+    default => sub {
+	Math::Random::MT->use
+	    ? "Math::Random::MT"
+	    : Math::Random::MT::Perl->use
+		? "Math::Random::MT::Perl"
+		: "Data::SimplePassword::exception";
+    },
+);
 
-{
-    Math::Random::MT->use
-	? CLASS->class("Math::Random::MT")
-	: Math::Random::MT::Perl->use
-	    ? CLASS->class("Math::Random::MT::Perl")
-	    : CLASS->class("Data::SimplePassword::exception");
-}
+has 'seed_num' => (
+    is => 'rw',
+    default => 1,    # now internal use only, up to 624
+);
 
-sub _default_chars { ( 0..9, 'a'..'z', 'A'..'Z' ) }
+has 'provider' => (
+    is => 'rw',
+    trigger => sub {
+	my $self = shift;
+	my ($provider) = @_;
 
-sub new {
-    my $param = shift;
-    my $class = ref $param || $param;
-    my %args = (
-	chars => undef,
-	seed_num => 1,    # now internal use only, up to 624
-	provider => '',    # see Crypt::Random::Generator
-	@_
-    );
-
-    return bless { %args }, $class;
-}
-
-sub provider {
-    my $self = shift;
-    my ($provider) = @_;
-
-    if( defined $provider and $provider ne '' ){
-	# check
 	$self->is_available_provider( $provider )
 	    or croak "RNG provider '$_[0]' is not available on this machine.";
+    },
+);
 
-	$self->{provider} = $provider;
+has '_default_chars' => (
+    is => 'ro',
+    default => sub { [ 0..9, 'a'..'z', 'A'..'Z' ] },
+);
+
+sub chars {
+    my $self = shift;
+
+    if( scalar @_ > 0 ){
+	croak "each chars must be a letter or an integer."
+	    if scalar grep { length( $_ ) != 1 } @_;
+
+	$self->{_chars} = [ @_ ];
     }
 
-    return $self->{provider};
+    return wantarray ? @{ $self->{_chars} } : $self->{_chars};
 }
 
 sub is_available_provider {
@@ -68,20 +70,6 @@ sub is_available_provider {
     return;
 }
 
-sub chars {
-    my $self = shift;
-
-    if( scalar @_ > 0 ){
-
-	croak "each chars must be a letter or an integer."
-	    if scalar grep { length( $_ ) != 1 } @_;
-
-	$self->{chars} = [ @_ ];
-    }
-
-    return wantarray ? @{ $self->{chars} } : $self->{chars};
-}
-
 sub make_password {
     my $self = shift;
     my $len = shift || 8;
@@ -91,7 +79,7 @@ sub make_password {
 
     my @chars = defined $self->chars && ref $self->chars eq 'ARRAY'
 	? @{ $self->chars }
-	: $self->_default_chars;
+	: @{ $self->_default_chars };
 
     my $gen = $self->class->new(
 	map { Crypt::Random::makerandom( Size => 32, Strength => 1, Provider => $self->provider ) } 1 .. $self->seed_num
@@ -181,6 +169,12 @@ Sets a type of random number generator, see Crypt::Random::Provider::* for detai
 
 Returns true when the type is available.
 
+=item B<seed_num>
+
+  $sp->seed_num( 32 );    # up to 624
+
+Sets initial seed number (internal use only).
+
 =back
 
 =head1 COMMAND-LINE TOOL
@@ -189,8 +183,7 @@ A useful command named rndpassword(1) will be also installed. Type B<man rndpass
 
 =head1 DEPENDENCY
 
-CLASS, Class::Accessor, Class::Data::Inheritable, Crypt::Random, Math::Random::MT (or Math::Random::MT::Perl),
-UNIVERSAL::require
+Moo, UNIVERSAL::require, Crypt::Random, Math::Random::MT (or Math::Random::MT::Perl),
 
 =head1 SEE ALSO
 
