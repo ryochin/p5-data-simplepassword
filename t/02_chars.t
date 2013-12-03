@@ -4,7 +4,7 @@ use strict;
 use lib qw(blib);
 use Data::SimplePassword;
 
-use Test::More tests => 10;
+use Test::More;
 
 my $sp = Data::SimplePassword->new;
 
@@ -23,3 +23,6 @@ ok( ! eval { $sp->chars("") }, "empty" );
 ok( ! eval { $sp->chars( qw(foo bar) ) }, "words" );
 ok( ! eval { $sp->chars( -5..5 ) }, "invalid numbers" );
 
+done_testing;
+
+__END__

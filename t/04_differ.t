@@ -4,7 +4,7 @@ use strict;
 use lib qw(blib);
 use Data::SimplePassword;
 
-use Test::More tests => 1;
+use Test::More;
 use List::MoreUtils;
 
 my $sp = Data::SimplePassword->new;
@@ -21,3 +21,6 @@ for(1..$n){
 
 ok( scalar List::MoreUtils::uniq( @result ) == $n, "unique test" );
 
+done_testing;
+
+__END__

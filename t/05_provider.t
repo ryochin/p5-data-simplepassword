@@ -23,3 +23,5 @@ SKIP: {
 };
 
 done_testing;
+
+__END__

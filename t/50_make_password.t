@@ -4,7 +4,7 @@ use strict;
 use lib qw(blib);
 use Data::SimplePassword;
 
-use Test::More tests => 14;
+use Test::More;
 
 use constant SUCCESS => 1;
 use constant FAILURE => 0;
@@ -51,3 +51,6 @@ for my $test ( @test ){
   }
 }
 
+done_testing;
+
+__END__

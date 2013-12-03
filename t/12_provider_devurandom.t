@@ -16,3 +16,4 @@ ok( length $sp->make_password( 32 ) == 32, "password length" );
 
 done_testing;
 
+__END__
