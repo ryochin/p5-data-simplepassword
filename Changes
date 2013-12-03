@@ -1,5 +1,9 @@
 Revision history for Perl extension Data::SimplePassword.
 
+0.10    Tue Dec  3 07:10:44 UTC 2013
+
+    * switched to Moo.
+
 0.08    Tue Jun 25 03:03:11 UTC 2013
 
     * added is_available_provider() method.
