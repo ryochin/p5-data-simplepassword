@@ -17,13 +17,13 @@ YA very easy-to-use but a bit strong random password generator.
 
 # METHODS
 
-- __new__
+- **new**
 
         my $sp = Data::SimplePassword->new;
 
     Makes a Data::SimplePassword object.
 
-- __chars__
+- **chars**
 
         $sp->chars( 0..9, 'a'..'z', 'A'..'Z' );    # default
         $sp->chars( 0..9, 'a'..'z', 'A'..'Z', qw(+ /) );    # b64-like
@@ -32,7 +32,7 @@ YA very easy-to-use but a bit strong random password generator.
 
     Sets an array of characters you want to use as your password string.
 
-- __make\_password__
+- **make\_password**
 
         my $password = $sp->make_password( 8 );    # default
         my $password = $sp->make_password( 1024 );
@@ -41,19 +41,19 @@ YA very easy-to-use but a bit strong random password generator.
 
 # EXTRA METHODS
 
-- __provider__
+- **provider**
 
         $sp->provider("devurandom");    # optional
 
     Sets a type of random number generator, see Crypt::Random::Provider::\* for details.
 
-- __is\_available\_provider__
+- **is\_available\_provider**
 
         $sp->is_available_provider("devurandom");
 
     Returns true when the type is available.
 
-- __seed\_num__
+- **seed\_num**
 
         $sp->seed_num( 32 );    # up to 624
 
@@ -61,7 +61,7 @@ YA very easy-to-use but a bit strong random password generator.
 
 # COMMAND-LINE TOOL
 
-A useful command named rndpassword(1) will be also installed. Type __man rndpassword__ for details.
+A useful command named rndpassword(1) will be also installed. Type **man rndpassword** for details.
 
 # DEPENDENCY
 
@@ -69,7 +69,7 @@ Moo, UNIVERSAL::require, Crypt::Random, Math::Random::MT (or Math::Random::MT::P
 
 # SEE ALSO
 
-Crypt::GeneratePassword, Crypt::RandPasswd, String::MkPasswd, Data::Random::String
+Crypt::GeneratePassword, Crypt::RandPasswd, String::MkPasswd, Data::Random::String, String::Random, Crypt::XkcdPassword, Session::Token
 
 http://en.wikipedia.org/wiki//dev/random
 
@@ -79,7 +79,7 @@ https://github.com/ryochin/p5-data-simplepassword
 
 # AUTHOR
 
-Ryo Okamoto <ryo@aquahill.net>
+Ryo Okamoto &lt;ryo@aquahill.net>
 
 # COPYRIGHT & LICENSE
 
