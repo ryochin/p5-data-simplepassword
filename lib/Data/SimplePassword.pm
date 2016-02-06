@@ -11,7 +11,7 @@ use Crypt::Random ();
 
 # ABSTRACT: Simple random password generator
 
-our $VERSION = '0.10';
+our $VERSION = '0.11';
 
 class_has 'class' => (
     is => 'rw',
@@ -187,7 +187,7 @@ Moo, UNIVERSAL::require, Crypt::Random, Math::Random::MT (or Math::Random::MT::P
 
 =head1 SEE ALSO
 
-Crypt::GeneratePassword, Crypt::RandPasswd, String::MkPasswd, Data::Random::String
+Crypt::GeneratePassword, Crypt::RandPasswd, String::MkPasswd, Data::Random::String, String::Random, Crypt::XkcdPassword, Session::Token
 
 http://en.wikipedia.org/wiki//dev/random
 
